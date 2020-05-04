@@ -23,3 +23,4 @@ public class DeleteDepartmentAction implements Action {
         response.sendRedirect("/departments/departments");
     }
 }
+
