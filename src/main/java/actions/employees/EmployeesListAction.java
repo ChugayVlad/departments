@@ -27,3 +27,4 @@ public class EmployeesListAction implements Action {
         request.getRequestDispatcher("/WEB-INF/jsp/EmployeesList.jsp").forward(request, response);
     }
 }
+
