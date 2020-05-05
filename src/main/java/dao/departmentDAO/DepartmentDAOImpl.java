@@ -2,6 +2,7 @@ package dao.departmentDAO;
 
 import dao.ConnectionBuilder;
 import model.Department;
+import util.HibernateSessionFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override
     public List<Department> listAllDepartments() {
-        List<Department> listDepartments = new ArrayList<>();
+        /*List<Department> listDepartments = new ArrayList<>();
         try (Connection con = getConnection();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(SELECT_ALL)) {
@@ -48,7 +49,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return listDepartments;
+        return listDepartments;*/
+
+        List<Department> departments = (List<Department>) HibernateSessionFactory.getSessionFactory().openSession().createQuery("from Department").list();
+        return departments;
     }
 
     @Override

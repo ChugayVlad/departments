@@ -41,7 +41,7 @@ public class InsertUpdateEmployeeAction implements Action {
         } catch (NumberFormatException e){
             employee.setSalary(null);
         }
-        employee.setDepartmentId(Long.parseLong(departmentId));
+        //employee.setDepartmentId(Long.parseLong(departmentId));
         if (request.getParameter("id") != null) {
             employee.setId(Long.parseLong(request.getParameter("id")));
         }

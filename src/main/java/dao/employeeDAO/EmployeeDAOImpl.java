@@ -34,7 +34,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             statement.setObject(2, employee.getRecruitmentDate());
             statement.setString(3, employee.getName());
             statement.setDouble(4, employee.getSalary());
-            statement.setLong(5, employee.getDepartmentId());
+           // statement.setLong(5, employee.getDepartmentId());
             rowInserted = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +45,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public List<Employee> listAllEmployeesByDepartment(Long departmentId) {
         List<Employee> listEmployees = new ArrayList<>();
-        try(Connection con = getConnection();
+        /*try(Connection con = getConnection();
             PreparedStatement stmt = con.prepareStatement(SELECT_ALL_BY_ID)) {
             stmt.setLong(1, departmentId);
             try(ResultSet rs = stmt.executeQuery()) {
@@ -55,14 +55,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         return listEmployees;
     }
 
     @Override
     public List<Employee> listAllEmployees() {
         List<Employee> listEmployees = new ArrayList<>();
-        try (Connection con = getConnection();
+        /*try (Connection con = getConnection();
              Statement stmt = con.createStatement();
              ResultSet rs = stmt.executeQuery(SELECT_ALL)) {
             while (rs.next()) {
@@ -71,7 +71,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         return listEmployees;
     }
 
@@ -91,7 +91,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     @Override
     public Employee get(Long id){
         Employee employee = null;
-        try(Connection con = getConnection();
+        /*try(Connection con = getConnection();
             PreparedStatement statement = con.prepareStatement(GET)) {
             statement.setLong(1, id);
             try(ResultSet resultSet = statement.executeQuery()) {
@@ -101,7 +101,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
         return employee;
     }
 
