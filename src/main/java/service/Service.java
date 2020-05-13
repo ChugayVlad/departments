@@ -3,9 +3,9 @@ package service;
 import exception.ValidationException;
 
 public interface Service<T> {
-    boolean insertUpdate(T model) throws ValidationException;
+    void insertUpdate(T entity) throws ValidationException;
 
-    boolean delete(Long id);
+    void delete(T entity);
 
     T get(Long id);
 }

@@ -18,12 +18,12 @@ public class Department{
     private Long id;
 
     @CheckWith(value = DepartmentDuplicateCheck.class, message = "Department with such name already exists")
+    @Length(min = 4, max = 20, message = "Name should be more then 3 characters and less then 20")
     @NotNull (message = "Enter name")
     @NotEmpty(message = "Enter name")
-    @Length(min = 4, max = 20, message = "Name should be more then 3 characters and less then 20")
     private String name;
 
-    private List<Employee> employees;
+    private List<Employee> employees = new ArrayList<>();
 
     public Department(){
     }
@@ -34,7 +34,7 @@ public class Department{
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Long getId() {
         return id;

@@ -49,7 +49,7 @@ public class Employee {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Long getId() {
         return id;
@@ -68,8 +68,8 @@ public class Employee {
         this.email = email;
     }
 
-
-    @Column(name = "recruitment_date")
+    @Basic
+    @Column(name = "recruitment_date", nullable = false)
     public Date getRecruitmentDate() {
         return recruitmentDate;
     }
@@ -87,7 +87,7 @@ public class Employee {
         this.name = name;
     }
 
-    @Column(name = "salary")
+    @Column(name = "salary", nullable = false)
     public Double getSalary() {
         return salary;
     }

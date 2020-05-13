@@ -19,7 +19,8 @@ public class DeleteDepartmentAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        departmentService.delete(Long.parseLong(request.getParameter("id")));
+        Department department = new Department(Long.parseLong(request.getParameter("id")), null);
+        departmentService.delete(department);
         response.sendRedirect("/departments/departments");
     }
 }

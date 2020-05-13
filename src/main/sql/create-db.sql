@@ -23,7 +23,7 @@ CREATE TABLE employees(
 );
 
 INSERT INTO departments VALUES(DEFAULT, 'department');
-INSERT INTO employees VALUES(DEFAULT, 'das@gmail', '01.01.2000', 'sanya', '3000', 1);
+INSERT INTO employees VALUES(DEFAULT, 'das@gmail', '2000-01-01', 'sanya', '3000', 1);
 
 
 SELECT * FROM departments;
