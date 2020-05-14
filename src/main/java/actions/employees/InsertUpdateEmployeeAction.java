@@ -2,6 +2,7 @@ package actions.employees;
 
 import actions.Action;
 import exception.ValidationException;
+import model.Department;
 import model.Employee;
 
 import service.EmployeeServiceImpl;
@@ -12,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
@@ -30,8 +30,7 @@ public class InsertUpdateEmployeeAction implements Action {
         String departmentId = request.getParameter("departmentId");
         employee.setEmail(request.getParameter("email"));
         try {
-            Date date = Date.valueOf(LocalDate.parse(request.getParameter("recruitmentDate")));
-            employee.setRecruitmentDate(date);
+            employee.setRecruitmentDate(LocalDate.parse(request.getParameter("recruitmentDate")));
         } catch (DateTimeParseException e){
             employee.setRecruitmentDate(null);
         }
@@ -41,7 +40,10 @@ public class InsertUpdateEmployeeAction implements Action {
         } catch (NumberFormatException e){
             employee.setSalary(null);
         }
-        //employee.setDepartmentId(Long.parseLong(departmentId));
+
+        Department department = new Department(Long.parseLong(departmentId), null);
+        employee.setDepartment(department);
+
         if (request.getParameter("id") != null) {
             employee.setId(Long.parseLong(request.getParameter("id")));
         }

@@ -1,14 +1,10 @@
 package model;
 
 
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotEmpty;
-import net.sf.oval.constraint.NotNull;
+import net.sf.oval.constraint.*;
 import util.DepartmentDuplicateCheck;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +19,7 @@ public class Department{
     @NotEmpty(message = "Enter name")
     private String name;
 
-    private List<Employee> employees = new ArrayList<>();
+    private List<Employee> employees;
 
     public Department(){
     }

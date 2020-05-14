@@ -28,8 +28,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public void delete(Department department) {
-        departmentDAO.delete(department);
+    public void delete(Long id) {
+        departmentDAO.delete(id);
     }
 
     @Override

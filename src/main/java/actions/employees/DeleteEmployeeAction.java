@@ -19,9 +19,7 @@ public class DeleteEmployeeAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Employee employee = new Employee();
-        employee.setId(Long.parseLong(request.getParameter("id")));
-        employeeService.delete(employee);
+        employeeService.delete(Long.parseLong(request.getParameter("id")));
         String departmentId = request.getParameter("departmentId");
         response.sendRedirect("/departments/employees" + "?departmentId=" + departmentId);
     }

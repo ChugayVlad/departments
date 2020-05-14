@@ -3,9 +3,8 @@ package model;
 import net.sf.oval.constraint.*;
 import util.EmployeeDuplicateCheck;
 
-
 import javax.persistence.*;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -20,11 +19,13 @@ public class Employee {
     @NotEmpty(message = "Enter email")
     private String email;
 
-    @DateRange(max = "today", message = "Future date is not allowed")
+
     @NotNull (message = "Enter recruitment date")
     @NotEmpty(message = "Enter recruitment date")
-    private Date recruitmentDate;
+    @Past(message = "Future date is not allowed")
+    private LocalDate recruitmentDate;
 
+    @MatchPattern(pattern = "^[a-zA-Z]*\\s?[a-zA-Z]*$", message = "Forbidden symbol or a lot of spaces")
     @Length(min = 4, max = 20, message = "Name should be more then 3 characters and less then 20")
     @NotNull (message = "Enter name")
     @NotEmpty(message = "Enter name")
@@ -40,7 +41,7 @@ public class Employee {
     public Employee(){
     }
 
-    public Employee(Long id, String email, Date recruitmentDate, String name, Double salary) {
+    public Employee(Long id, String email, LocalDate recruitmentDate, String name, Double salary) {
         this.id = id;
         this.email = email;
         this.recruitmentDate = recruitmentDate;
@@ -68,13 +69,12 @@ public class Employee {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "recruitment_date", nullable = false)
-    public Date getRecruitmentDate() {
+    @Column(name = "recruitment_date")
+    public LocalDate getRecruitmentDate() {
         return recruitmentDate;
     }
 
-    public void setRecruitmentDate(Date recruitmentDate) {
+    public void setRecruitmentDate(LocalDate recruitmentDate) {
         this.recruitmentDate = recruitmentDate;
     }
 
@@ -87,7 +87,7 @@ public class Employee {
         this.name = name;
     }
 
-    @Column(name = "salary", nullable = false)
+    @Column(name = "salary")
     public Double getSalary() {
         return salary;
     }
