@@ -5,6 +5,7 @@ import exception.ValidationException;
 import model.Department;
 import model.Employee;
 
+import service.DepartmentServiceImpl;
 import service.EmployeeServiceImpl;
 import service.Service;
 
@@ -18,9 +19,11 @@ import java.time.format.DateTimeParseException;
 
 public class InsertUpdateEmployeeAction implements Action {
     private Service<Employee> employeeService;
+    private Service<Department> departmentService;
 
     public InsertUpdateEmployeeAction() {
         this.employeeService = new EmployeeServiceImpl();
+        this.departmentService = new DepartmentServiceImpl();
     }
 
     @Override
@@ -40,10 +43,7 @@ public class InsertUpdateEmployeeAction implements Action {
         } catch (NumberFormatException e){
             employee.setSalary(null);
         }
-
-        Department department = new Department(Long.parseLong(departmentId), null);
-        employee.setDepartment(department);
-
+        employee.setDepartment(departmentService.get(Long.parseLong(departmentId)));
         if (request.getParameter("id") != null) {
             employee.setId(Long.parseLong(request.getParameter("id")));
         }

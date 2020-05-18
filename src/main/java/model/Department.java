@@ -49,7 +49,7 @@ public class Department{
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
     public List<Employee> getEmployees() {
         return employees;
     }

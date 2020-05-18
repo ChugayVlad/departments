@@ -10,7 +10,6 @@ import util.HibernateSessionFactory;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
-
     @Override
     public void insertUpdate(Employee employee) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
@@ -48,5 +47,4 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     public Employee get(Long id){
         return HibernateSessionFactory.getSessionFactory().openSession().get(Employee.class, id);
     }
-
 }
