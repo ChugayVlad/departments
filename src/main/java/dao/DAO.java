@@ -5,7 +5,7 @@ import model.Department;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 public interface DAO<T> {
-    boolean insertUpdate(T model);
-    boolean delete(Long id);
+    void insertUpdate(T entity);
+    void delete(Long id);
     T get(Long id);
 }

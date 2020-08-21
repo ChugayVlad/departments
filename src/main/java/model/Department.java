@@ -1,26 +1,25 @@
 package model;
 
 
-import net.sf.oval.constraint.CheckWith;
-import net.sf.oval.constraint.Length;
-import net.sf.oval.constraint.NotEmpty;
-import net.sf.oval.constraint.NotNull;
+import net.sf.oval.constraint.*;
 import util.DepartmentDuplicateCheck;
 
-import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
-
-public class Department implements Serializable {
-    private static final long serialVersionUID = -8802442547635617217L;
-
+@Entity
+@Table(name="departments")
+public class Department{
     private Long id;
 
     @CheckWith(value = DepartmentDuplicateCheck.class, message = "Department with such name already exists")
+    @Length(min = 4, max = 20, message = "Name should be more then 3 characters and less then 20")
     @NotNull (message = "Enter name")
     @NotEmpty(message = "Enter name")
-    @Length(min = 4, max = 20, message = "Name should be more then 3 characters and less then 20")
     private String name;
+
+    private List<Employee> employees;
 
     public Department(){
     }
@@ -30,6 +29,9 @@ public class Department implements Serializable {
         this.name = name;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -38,13 +40,22 @@ public class Department implements Serializable {
         this.id = id;
     }
 
-    @NotNull
+    @Column(name = "name")
     public String getName() {
          return name;
     }
 
-    public void setName(@NotNull String name) {
+    public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     @Override

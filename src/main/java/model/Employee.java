@@ -3,14 +3,13 @@ package model;
 import net.sf.oval.constraint.*;
 import util.EmployeeDuplicateCheck;
 
-
-import java.io.Serializable;
-import java.sql.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
-
-public class Employee implements Serializable {
-    private static final long serialVersionUID = 7371941336836653874L;
+@Entity
+@Table(name = "employees")
+public class Employee {
 
     private Long id;
 
@@ -20,11 +19,13 @@ public class Employee implements Serializable {
     @NotEmpty(message = "Enter email")
     private String email;
 
-    @DateRange(max = "today", message = "Future date is not allowed")
+
     @NotNull (message = "Enter recruitment date")
     @NotEmpty(message = "Enter recruitment date")
-    private Date recruitmentDate;
+    @Past(message = "Future date is not allowed")
+    private LocalDate recruitmentDate;
 
+    @MatchPattern(pattern = "^[a-zA-Z]*\\s?[a-zA-Z]*$", message = "Forbidden symbol or a lot of spaces")
     @Length(min = 4, max = 20, message = "Name should be more then 3 characters and less then 20")
     @NotNull (message = "Enter name")
     @NotEmpty(message = "Enter name")
@@ -35,20 +36,22 @@ public class Employee implements Serializable {
     @Min(value = 0, message = "Salary should be > 0")
     private Double salary;
 
-    private Long departmentId;
+    private Department department;
 
     public Employee(){
     }
 
-    public Employee(Long id, String email, Date recruitmentDate, String name, Double salary, Long departmentId) {
+    public Employee(Long id, String email, LocalDate recruitmentDate, String name, Double salary) {
         this.id = id;
         this.email = email;
         this.recruitmentDate = recruitmentDate;
         this.name = name;
         this.salary = salary;
-        this.departmentId = departmentId;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -57,6 +60,7 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -65,14 +69,16 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public Date getRecruitmentDate() {
+    @Column(name = "recruitment_date")
+    public LocalDate getRecruitmentDate() {
         return recruitmentDate;
     }
 
-    public void setRecruitmentDate(Date recruitmentDate) {
+    public void setRecruitmentDate(LocalDate recruitmentDate) {
         this.recruitmentDate = recruitmentDate;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -81,6 +87,7 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
+    @Column(name = "salary")
     public Double getSalary() {
         return salary;
     }
@@ -89,12 +96,14 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override
@@ -109,7 +118,7 @@ public class Employee implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, recruitmentDate, name, salary, departmentId);
+        return Objects.hash(id, email, recruitmentDate, name, salary);
     }
 
     @Override
@@ -120,7 +129,6 @@ public class Employee implements Serializable {
                 ", recruitmentDate=" + recruitmentDate +
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
-                ", departmentId=" + departmentId +
                 '}';
     }
 }

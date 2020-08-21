@@ -16,10 +16,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean insertUpdate(Department department) throws ValidationException {
+    public void insertUpdate(Department department) throws ValidationException {
         ObjectValidator objectValidator = new ObjectValidator();
         objectValidator.validateObject(department);
-        return departmentDAO.insertUpdate(department);
+        departmentDAO.insertUpdate(department);
     }
 
     @Override
@@ -28,8 +28,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean delete(Long id) {
-        return departmentDAO.delete(id);
+    public void delete(Long id) {
+        departmentDAO.delete(id);
     }
 
     @Override

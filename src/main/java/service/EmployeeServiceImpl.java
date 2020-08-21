@@ -12,10 +12,10 @@ public class EmployeeServiceImpl implements EmployeeService{
     EmployeeDAO employeeDAO = new EmployeeDAOImpl();
 
     @Override
-    public boolean insertUpdate(Employee employee) throws ValidationException {
+    public void insertUpdate(Employee employee) throws ValidationException {
         ObjectValidator objectValidator = new ObjectValidator();
         objectValidator.validateObject(employee);
-        return employeeDAO.insertUpdate(employee);
+        employeeDAO.insertUpdate(employee);
     }
 
     @Override
@@ -24,8 +24,8 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public boolean delete(Long id) {
-        return employeeDAO.delete(id);
+    public void delete(Long id) {
+        employeeDAO.delete(id);
     }
 
     @Override
